@@ -1,4 +1,4 @@
-import GUI.NewsGUI;
+import Vista.NewsGUI;
 import modelo.Modelo;
 import Vista.*;
 import Controlador.*;

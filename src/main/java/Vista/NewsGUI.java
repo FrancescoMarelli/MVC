@@ -1,4 +1,4 @@
-package GUI;
+package Vista;
 import Vista.*;
 import com.kwabenaberko.newsapilib.models.Article;
 
@@ -142,7 +142,7 @@ public class NewsGUI extends JFrame implements Vista{
         public void mouseClicked(MouseEvent e) {
             // Crear una nueva ventana para mostrar la noticia completa
             JFrame ventanaNoticia = new JFrame(tituloNoticia);
-            ventanaNoticia.setIconImage(new ImageIcon("nalogo.png").getImage());
+            ventanaNoticia.setIconImage(new ImageIcon("src/main/img/nalogo.png").getImage());
             ventanaNoticia.setSize(600, 400);
             ventanaNoticia.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Cerrar solo la ventana actual al cerrar
 
@@ -188,6 +188,7 @@ public class NewsGUI extends JFrame implements Vista{
                     }
                 }
             });
+
             panelPrincipal.add(urlLabel, BorderLayout.SOUTH);
 
             // Agregar el panel principal a la ventana de la noticia
