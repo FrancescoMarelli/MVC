@@ -1,5 +1,5 @@
 package GUI;
-
+import Vista.*;
 import com.kwabenaberko.newsapilib.models.Article;
 
 import javax.swing.*;
@@ -9,30 +9,15 @@ import java.awt.event.MouseEvent;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
-public class NewsGUI extends JFrame {
+
+public class NewsGUI extends JFrame implements Vista{
     private JPanel panelPrincipal;
     JPanel panelCabecera;
     JLabel labelCabecera;
     private JPanel panelNoticias;
-    public NewsGUI(ArrayList<Article> noticias, String tituloSeccion) {
-        // Configurar la ventana
-        setTitle("Noticias - " + tituloSeccion);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 450);
-        setIconImage(new ImageIcon("src/main/img/nalogo.png").getImage());
-        setResizable(false);
-
-        panelPrincipal = crearPanelPrincipal(tituloSeccion);
-        panelNoticias = crearPanelNoticias(noticias);
-        panelPrincipal.add(new JScrollPane(panelNoticias), BorderLayout.CENTER);
-        panelNoticias.setBackground(new Color(222, 222, 216));
-        panelNoticias.setOpaque(true);
-
-
-        add(panelPrincipal);
-        setVisible(true);
-    }
 
     private JPanel crearPanelPrincipal(String tituloPagina) {
         panelCabecera = crearPanelCabecera(tituloPagina);
@@ -61,10 +46,10 @@ public class NewsGUI extends JFrame {
         return panelCabecera;
     }
 
-    private JPanel crearPanelNoticias(ArrayList<Article> noticias) {
+    private JPanel crearPanelNoticias(ArrayList<Article> articulos) {
         panelNoticias = new JPanel();
         panelNoticias.setLayout(new BoxLayout(panelNoticias, BoxLayout.Y_AXIS));
-        for (Article noticia : noticias) {
+        for (Article noticia : articulos) {
             JPanel panelTituloNoticia = crearPanelTituloNoticia(noticia);
             panelNoticias.add(panelTituloNoticia);
             panelNoticias.add(Box.createRigidArea(new Dimension(5, 10)));
@@ -209,6 +194,27 @@ public class NewsGUI extends JFrame {
             ventanaNoticia.add(panelPrincipal);
             ventanaNoticia.setVisible(true);
         }
+
+    }
+
+    // Vista Controlador
+    public void mostrarArticulos(ArrayList<Article> articulos, String consulta) {
+        // Configurar la ventana
+        setTitle("Noticias - " + consulta);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 450);
+        setIconImage(new ImageIcon("src/main/img/nalogo.png").getImage());
+        setResizable(false);
+
+        panelPrincipal = crearPanelPrincipal(consulta);
+        panelNoticias = crearPanelNoticias(articulos);
+        panelPrincipal.add(new JScrollPane(panelNoticias), BorderLayout.CENTER);
+        panelNoticias.setBackground(new Color(222, 222, 216));
+        panelNoticias.setOpaque(true);
+
+
+        add(panelPrincipal);
+        setVisible(true);
 
     }
 

@@ -11,7 +11,7 @@ Esta aplicación Java Swing proporciona una interfaz gráfica de usuario (GUI) p
 - **Interfaz Gráfica Atractiva**: Diseño de interfaz de usuario intuitivo y atractivo.
 - **Acceso a API de Noticias**: La aplicación se conecta a una API de noticias para obtener las últimas noticias de actualidad y tecnología.
 - **Visualización de Títulos**: Muestra los títulos de las noticias en una lista ordenada.
-- **Vista de Noticia Completa**: Permite a los usuarios hacer clic en un título para ver la noticia completa en una ventana separada.
+- **Vista.Vista de Noticia Completa**: Permite a los usuarios hacer clic en un título para ver la noticia completa en una ventana separada.
 - **Configuración de Estilos**: Utiliza estilos personalizados para mejorar la presentación de la interfaz de usuario.
 
 ## Contribuciones

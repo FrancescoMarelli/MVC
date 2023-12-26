@@ -5,26 +5,26 @@ import com.kwabenaberko.newsapilib.models.Article;
 import com.kwabenaberko.newsapilib.models.request.EverythingRequest;
 import com.kwabenaberko.newsapilib.models.response.ArticleResponse;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 
 public class Modelo {
 
     private final NewsApiClient newsApiClient;
     ArrayList<Article> noticias;
+    String queryName;
 
     public Modelo() {
         this.newsApiClient = new NewsApiClient("895c1b9e570349cc830c4571482d4758");
         noticias = new ArrayList<>();
     }
 
-    public ArrayList<Article> getNoticias(){
-        return noticias;
-    }
-
     public CompletableFuture<List<Article>> parseEverythingToList(String query) {
+        queryName = query;
         CompletableFuture<List<Article>> future = new CompletableFuture<>();
 
         newsApiClient.getEverything(
@@ -46,9 +46,22 @@ public class Modelo {
                     }
                 }
         );
+
         return future;
     }
+
+    public ArrayList<Article> getArticles(String query) throws ExecutionException, InterruptedException {
+        return (ArrayList<Article>) parseEverythingToList(query).get();
+
+    }
+
+
+    public String getQueryName(){
+        return queryName;
+    }
+
 }
+
 
 class ArticleUtils {
 

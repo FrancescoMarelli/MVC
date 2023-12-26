@@ -1,19 +1,16 @@
 import GUI.NewsGUI;
-import com.kwabenaberko.newsapilib.models.Article;
 import modelo.Modelo;
-import org.app.*;
+import Vista.*;
+import Controlador.*;
 
-import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         Modelo modelo = new Modelo();
-        ArrayList<Article> noticias = (ArrayList<Article>) modelo.parseEverythingToList("bitcoin").join();
-        for (Article noticia : noticias) {
-            System.out.println(noticia.getTitle());
-        }
-        // Vista vista = new Vista();
-       // Controlador controlador = new Controlador(modelo, vista);
+        Vista vista = new NewsGUI();
+        Controlador controlador = new Controlador(modelo, vista);
 
     }
 }
