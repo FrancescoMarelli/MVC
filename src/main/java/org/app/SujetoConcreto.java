@@ -1,6 +1,7 @@
 package org.app;
 
 import com.kwabenaberko.newsapilib.models.Article;
+import modelo.Modelo;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -16,15 +17,14 @@ public class SujetoConcreto implements Sujeto {
 
     private List<Observador> observadores = new ArrayList<>();
     private String consulta;
-    private NewsApiParser newsApiParser;
+    private Modelo newsApiParser;
     private CompletableFuture<List<Article>> future;
     private Timer timer;
 
 
     public SujetoConcreto(String consulta) {
         this.consulta = consulta;
-        String apiKey = "895c1b9e570349cc830c4571482d4758";
-        newsApiParser = new NewsApiParser(apiKey);
+        newsApiParser = new Modelo();
         future = newsApiParser.parseEverythingToList(consulta);
     }
 

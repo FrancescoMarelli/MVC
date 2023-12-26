@@ -1,20 +1,19 @@
-import GUI.UsuarioGUI;
+import GUI.NewsGUI;
+import com.kwabenaberko.newsapilib.models.Article;
+import modelo.Modelo;
 import org.app.*;
+
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        // Contexto 1
-        /*Sujeto sujetoHacking = new SujetoConcreto();
-        sujetoHacking.agregarObservador(new ObservadorNewsApi(sujetoHacking, "Sergio"));
-
-        // Contexto 2
-        Sujeto sujetoPatrones = new SujetoConcreto("patrones de diseño");
-        sujetoPatrones.agregarObservador(new ObservadorNewsApi(sujetoPatrones, "Samuel"));
-
-        sujetoPatrones.run();
-        sujetoHacking.run();*/
-        UsuarioGUI gui1 = new UsuarioGUI();
-
+        Modelo modelo = new Modelo();
+        ArrayList<Article> noticias = (ArrayList<Article>) modelo.parseEverythingToList("bitcoin").join();
+        for (Article noticia : noticias) {
+            System.out.println(noticia.getTitle());
+        }
+        // Vista vista = new Vista();
+       // Controlador controlador = new Controlador(modelo, vista);
 
     }
 }
