@@ -1,5 +1,5 @@
 package Controlador;
-
+import usuario.*;
 import Vista.Vista;
 import com.kwabenaberko.newsapilib.models.Article;
 import modelo.Modelo;
@@ -10,14 +10,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class Controlador {
-    private Vista vista;
-    private Modelo modelo;
+    private Usuario usuario;
 
-    public Controlador(Modelo modelo, Vista vista) throws ExecutionException, InterruptedException {
-        this.modelo = modelo;
-        this.vista = vista;
+    public Controlador(Usuario usuario) throws ExecutionException, InterruptedException {
+        this.usuario = usuario;
         try {
-            vista.mostrarArticulos(modelo.getArticles("bitcoin"), modelo.getQueryName());
+            usuario.getVista().mostrarArticulos(usuario.getModelo().getArticles("bitcoin"), usuario.getModelo().getQueryName());
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
