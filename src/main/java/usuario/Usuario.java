@@ -1,16 +1,18 @@
 package usuario;
 import  Vista.*;
+import modelo.*;
 
 public class Usuario {
-    String name;
-    Vista vista;
+    private String name;
+    private Vista vista;
+    private Modelo modelo;
 
-    // Constructor que recibe el nombre como parámetro
-    public Usuario(String name) {
+    public Usuario(String name, Modelo modelo, Vista vista) {
         this.name = name;
+        this.modelo = modelo;
+        this.vista = vista;
     }
 
-    // Getter para acceder al atributo "name"
     public String getName() {
         return name;
     }
@@ -21,6 +23,10 @@ public class Usuario {
 
     public Vista getVista() {
         return vista;
+    }
+
+    public Modelo getModelo() {
+        return modelo;
     }
 
 }
