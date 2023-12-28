@@ -10,12 +10,19 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class Controlador {
-    private Usuario usuario;
+    private Modelo modelo;
 
-    public Controlador(Usuario usuario) throws ExecutionException, InterruptedException {
-        this.usuario = usuario;
+    public Controlador(Modelo modelo){
+        this.modelo = modelo;
+    }
+
+    public Modelo getModelo(){
+        return this.modelo;
+    }
+
+    public void hacerBusqueda(Vista vista, String query) throws ExecutionException, InterruptedException {
         try {
-            usuario.getVista().mostrarArticulos(usuario.getModelo().getArticles("bitcoin"), usuario.getModelo().getQueryName());
+            vista.mostrarArticulos(getModelo().getArticles(query), getModelo().getQueryName());
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
