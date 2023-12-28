@@ -4,6 +4,8 @@ import  Vista.*;
 import modelo.*;
 
 import java.util.concurrent.ExecutionException;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class Usuario {
     private String name;
@@ -37,9 +39,29 @@ public class Usuario {
         return controlador;
     }
 
-    public void setQuery(){
-        //llamar cuadro de texto para setear la tematica de consulta
-        this.query = "Bitcoin";// de momento ponemos bitcoin
+    public void setQuery() {
+        this.query = "Bitcoin";// por defecto
+
+        // Crear un cuadro de texto para ingresar la consulta
+        JTextField textField = new JTextField();
+        Object[] message = {"Introduce la temática de la consulta:", textField};
+
+        // Muestra el cuadro de diálogo y espera a que el usuario ingrese texto
+        int option = JOptionPane.showOptionDialog(
+                null,
+                message,
+                "Asignar Temática de Consulta",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                null,
+                null
+        );
+
+        // Verifica si el usuario hizo clic en OK y actualiza la consulta
+        if (option == JOptionPane.OK_OPTION) {
+            this.query = textField.getText();
+        }
     }
 
     public void buscar() throws ExecutionException, InterruptedException {
