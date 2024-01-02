@@ -95,8 +95,18 @@ public class Usuario {
         // Cambiar el tipo de vista según la opción seleccionada en el JComboBox
         if ("Vista1".equals(tipoVista)) {
             this.vista = new Vista2();
+            try {
+                buscar();
+            } catch (ExecutionException | InterruptedException ex) {
+                ex.printStackTrace();
+            }
         } else if ("Vista2".equals(tipoVista)) {
             vista = new NewsGUI();
+            try {
+                buscar();
+            } catch (ExecutionException | InterruptedException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
