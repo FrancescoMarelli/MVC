@@ -3,9 +3,11 @@ import Controlador.Controlador;
 import  Vista.*;
 import modelo.*;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.concurrent.ExecutionException;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 public class Usuario {
     private String name;
@@ -16,18 +18,19 @@ public class Usuario {
     public Usuario(String name, Controlador controlador) {
         this.name = name;
         this.controlador = controlador;
-        this.vista = new NewsGUI();
+        this.vista = new Vista2();
         setQuery();
     }
 
     public String getName() {
         return name;
     }
+
     public String getQuery() {
         return query;
     }
 
-    public void setVista(Vista vista){
+    public void setVista(Vista vista) {
         this.vista = vista;
     }
 
@@ -40,31 +43,64 @@ public class Usuario {
     }
 
     public void setQuery() {
-        this.query = "Bitcoin";// por defecto
+        JDialog dialog = new JDialog();
+        dialog.setTitle("Asignar Temática de Consulta");
+        dialog.setSize(500, 200);
+        dialog.setLayout(new GridLayout(4, 1));
 
-        // Crear un cuadro de texto para ingresar la consulta
-        JTextField textField = new JTextField();
-        Object[] message = {"Introduce la temática de la consulta:", textField};
+        // Agregar el JTextArea para ingresar la temática de la consulta
+        JTextArea textArea = new JTextArea();
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
 
-        // Muestra el cuadro de diálogo y espera a que el usuario ingrese texto
-        int option = JOptionPane.showOptionDialog(
-                null,
-                message,
-                "Asignar Temática de Consulta",
-                JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                null,
-                null
-        );
+        // Agregar el botón OK
+        JButton okButton = new JButton("OK");
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                query = textArea.getText();
+                textArea.setText("");
 
-        // Verifica si el usuario hizo clic en OK y actualiza la consulta
-        if (option == JOptionPane.OK_OPTION) {
-            this.query = textField.getText();
+                try {
+                    buscar();
+                } catch (ExecutionException | InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        // Agregar el JComboBox para seleccionar el tipo de vista
+        JComboBox<String> tipoVistaComboBox = new JComboBox<>(new String[]{"Vista1", "Vista2"});
+        tipoVistaComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cambiarTipoVista((String) tipoVistaComboBox.getSelectedItem());
+            }
+        });
+
+        dialog.add(new JLabel("Introduce la temática de la consulta:"));
+        dialog.add(textArea);
+        dialog.add(new JLabel("Seleccionar Tipo de Vista: "));
+        dialog.add(tipoVistaComboBox);
+        dialog.add(okButton);
+
+        // Centra el diálogo en la pantalla
+        dialog.setLocationRelativeTo(null);
+
+
+        // Muestra el cuadro de diálogo
+        dialog.setVisible(true);
+    }
+    private void cambiarTipoVista(String tipoVista) {
+        // Cambiar el tipo de vista según la opción seleccionada en el JComboBox
+        if ("Vista1".equals(tipoVista)) {
+            this.vista = new Vista2();
+        } else if ("Vista2".equals(tipoVista)) {
+            vista = new NewsGUI();
         }
     }
 
-    public void buscar() throws ExecutionException, InterruptedException {
+    public void buscar() throws InterruptedException, ExecutionException {
         getControlador().hacerBusqueda(getVista(), getQuery());
     }
 }
