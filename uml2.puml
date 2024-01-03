@@ -1,0 +1,94 @@
+@startuml
+class Vista.Vista2 {
+- JPanel panelPrincipal
+~ JPanel panelCabecera
+~ JLabel labelCabecera
+- JPanel panelNoticias
+- JPanel crearPanelPrincipal(String)
+- JPanel crearPanelCabecera(String)
+- JPanel crearPanelNoticias(ArrayList<Article>)
+- JPanel crearPanelTituloNoticia(Article)
+- void configurarEstiloLabelTitulo(JLabel,Article)
+~ ImageIcon getLogo()
++ void update(ArrayList<Article>,String)
++ void mostrarArticulos(ArrayList<Article>,String)
+}
+class Vista.Vista2$NoticiaMouseListener {
+- Article noticia
+- String tituloNoticia
+- URL urlNoticia
++ void mouseClicked(MouseEvent)
+}
+class Main {
++ {static} void main(String[])
+}
+class modelo.Modelo {
+- NewsApiClient newsApiClient
+~ ArrayList<Article> noticias
+~ String queryName
++ CompletableFuture<List<Article>> parseEverythingToList(String)
++ ArrayList<Article> getArticles(String)
++ String getQueryName()
+}
+class modelo.ArticleUtils {
++ {static} Article findByTitle(List<Article>,String)
+}
+class Vista.NewsGUI {
+- JPanel panelPrincipal
+~ JPanel panelCabecera
+~ JLabel labelCabecera
+- JPanel panelNoticias
+- JPanel crearPanelPrincipal(String)
+- JPanel crearPanelCabecera(String)
+- JPanel crearPanelNoticias(ArrayList<Article>)
+- JPanel crearPanelTituloNoticia(Article)
+- void configurarEstiloLabelTitulo(JLabel,Article)
+~ ImageIcon getLogo()
++ void update(ArrayList<Article>,String)
++ void mostrarArticulos(ArrayList<Article>,String)
+}
+class Vista.NewsGUI$NoticiaMouseListener {
+- Article noticia
+- String tituloNoticia
+- URL urlNoticia
++ void mouseClicked(MouseEvent)
+}
+class usuario.Usuario {
+- String name
+- Vista vista
+- Controlador controlador
+- String query
++ String getName()
++ String getQuery()
++ void setVista(Vista)
++ Vista getVista()
++ Controlador getControlador()
++ void setQuery()
+- void cambiarTipoVista(String)
++ void buscar()
+}
+class Vista.DashBoard {
+- JButton button1
++ void mostrarArticulos(ArrayList<Article>,String)
+}
+class Controlador.Controlador {
+- Modelo modelo
++ Modelo getModelo()
++ void hacerBusqueda(Vista,String)
+}
+interface Vista.Vista {
+~ void mostrarArticulos(ArrayList<Article>,String)
+}
+
+
+Vista.Vista <|.. Vista.Vista2
+Vista.JFrame <|-- Vista.Vista2
+Vista.Vista2 +.. Vista.Vista2$NoticiaMouseListener
+Vista.MouseAdapter <|-- Vista.Vista2$NoticiaMouseListener
+Vista.Vista <|.. Vista.NewsGUI
+Vista.JFrame <|-- Vista.NewsGUI
+Vista.NewsGUI +.. Vista.NewsGUI$NoticiaMouseListener
+Vista.MouseAdapter <|-- Vista.NewsGUI$NoticiaMouseListener
+Vista.Vista <|.. Vista.DashBoard
+Vista.JFrame <|-- Vista.DashBoard
+@enduml

@@ -30,7 +30,7 @@ public class Modelo {
         newsApiClient.getEverything(
                 new EverythingRequest.Builder()
                         .q(query)
-                        .sortBy("publishedAt")
+                        .sortBy("popularity")
                         .pageSize(100)
                         .build(),
                 new NewsApiClient.ArticlesResponseCallback() {
@@ -54,7 +54,6 @@ public class Modelo {
         return (ArrayList<Article>) parseEverythingToList(query).get();
 
     }
-
 
     public String getQueryName(){
         return queryName;
