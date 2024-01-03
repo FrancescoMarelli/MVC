@@ -70,7 +70,7 @@ public class Usuario {
         });
 
         // Agregar el JComboBox para seleccionar el tipo de vista
-        JComboBox<String> tipoVistaComboBox = new JComboBox<>(new String[]{"Vista1", "Vista2"});
+        JComboBox<String> tipoVistaComboBox = new JComboBox<>(new String[]{"Vista1", "Vista2","Vista3"});
         tipoVistaComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -102,6 +102,13 @@ public class Usuario {
             }
         } else if ("Vista2".equals(tipoVista)) {
             vista = new NewsGUI();
+            try {
+                buscar();
+            } catch (ExecutionException | InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        } else if ("Vista3".equals(tipoVista)) {
+            vista = new Vista3();
             try {
                 buscar();
             } catch (ExecutionException | InterruptedException ex) {
