@@ -42,6 +42,7 @@ public class Usuario {
         return controlador;
     }
 
+
     public void setQuery() {
         JDialog dialog = new JDialog();
         dialog.setTitle("Asignar Temática de Consulta");
@@ -55,21 +56,26 @@ public class Usuario {
 
         // Agregar el botón OK
         JButton okButton = new JButton("OK");
+
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                query = textArea.getText();
-                textArea.setText("");
-
-                try {
-                    buscar();
-                } catch (ExecutionException | InterruptedException ex) {
-                    ex.printStackTrace();
+                // Realizar la búsqueda solo si se ha ingresado un tema de consulta
+                if (!textArea.getText().isEmpty()) {
+                    try {
+                        query = textArea.getText();
+                        buscar();
+                    } catch (ExecutionException | InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                    dialog.dispose(); // Cerrar el diálogo después de realizar la búsqueda
+                } else {
+                    // Mostrar un mensaje indicando que se debe escribir un tema de consulta
+                    JOptionPane.showMessageDialog(null, "Por favor, escriba un tema de consulta.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
 
-        // Agregar el JComboBox para seleccionar el tipo de vista
         JComboBox<String> tipoVistaComboBox = new JComboBox<>(new String[]{"Vista1", "Vista2", "DashBoard"});
         tipoVistaComboBox.addActionListener(new ActionListener() {
             @Override
@@ -87,10 +93,11 @@ public class Usuario {
         // Centra el diálogo en la pantalla
         dialog.setLocationRelativeTo(null);
 
-
         // Muestra el cuadro de diálogo
-        dialog.setVisible(true);
+        SwingUtilities.invokeLater(() -> dialog.setVisible(true)); // Mostrar el diálogo en el hilo de despacho de eventos
     }
+
+
     private void cambiarTipoVista(String tipoVista) {
         vista = new NewsGUI();
         // Cambiar el tipo de vista según la opción seleccionada en el JComboBox
@@ -118,6 +125,11 @@ public class Usuario {
     }
 
     public void buscar() throws InterruptedException, ExecutionException {
-        getControlador().hacerBusqueda(getVista(), getQuery());
+        // Verificar si se ha ingresado un tema de consulta
+        if (getQuery() != null && !getQuery().isEmpty()) {
+            // Verificar si se ha seleccionado una vista
+                getControlador().hacerBusqueda(getVista(), getQuery());
+        }
     }
+
 }
