@@ -1,6 +1,7 @@
 package Vista;
 
 import com.kwabenaberko.newsapilib.models.Article;
+import com.kwabenaberko.newsapilib.models.Source;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -12,23 +13,20 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
 import java.awt.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class BarChart extends JFrame implements Vista{
     private ArrayList<Article> articulos;
     private Map<String, Integer> authorsPerSource;
+    private ArrayList<String> sources;
 
     public BarChart(ArrayList<Article> articles) {
         super("Gráfico de Barras");
         this.articulos = articles;
+        this.sources = new ArrayList<>();
         this.authorsPerSource = countAuthorsPerSource(articles);
-
     }
 
     @Override
@@ -50,7 +48,9 @@ public class BarChart extends JFrame implements Vista{
         for (Article article : articles) {
             if (article.getSource() == null) continue; // Ignorar artículos sin fuente (source
             if (article.getAuthor() == null) continue; // Ignorar artículos sin autor
+
             String source = article.getSource().getName();
+            this.sources.add(source);
             int authorsCount = article.getAuthor().split(",").length; // Contar autores separados por coma
             authorsPerSource.put(source, authorsPerSource.getOrDefault(source, 0) + authorsCount);
         }
@@ -71,12 +71,21 @@ public class BarChart extends JFrame implements Vista{
                 false
         );
 
-        // Personalizar el gráfico de barras
-        CategoryPlot plot = chart.getCategoryPlot();
-        BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setDrawBarOutline(false);
+         // Personalizar el gráfico de barras
+         CategoryPlot plot = chart.getCategoryPlot();
+         BarRenderer renderer = (BarRenderer) plot.getRenderer();
+         renderer.setDrawBarOutline(false);
 
-        return chart;
+         // Obtener la lista de fuentes
+         List<String> sourceList = new ArrayList<>(authorsPerSource.keySet());
+
+         // Asignar un color diferente a cada barra (fuente)
+         for (int i = 0; i < sourceList.size(); i++) {
+             Paint color = getDistinctColor();
+             plot.getRenderer().setSeriesPaint(i, color);
+         }
+
+         return chart;
     }
 
     private CategoryDataset createDataset() {
@@ -88,5 +97,16 @@ public class BarChart extends JFrame implements Vista{
 
         return dataset;
     }
+
+    private Paint getDistinctColor() {
+        // Genera un color RGB aleatorio
+        Random random = new Random();
+        int r = random.nextInt(256);
+        int g = random.nextInt(256);
+        int b = random.nextInt(256);
+
+        return new Color(r, g, b);
+    }
+
 
 }

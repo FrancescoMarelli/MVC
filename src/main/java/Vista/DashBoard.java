@@ -35,7 +35,7 @@ public class DashBoard extends JFrame implements Vista {
         // Establecer el tamaño preferido para cada gráfico
         pieChartPanel.setPreferredSize(new Dimension(chartWidth, chartHeight));
         lineChartPanel.setPreferredSize(new Dimension(chartWidth, chartHeight));
-        barChartPanel.setPreferredSize(new Dimension(chartWidth*2, chartHeight * 2)); // Doble altura para el BarChart
+        barChartPanel.setPreferredSize(new Dimension(chartWidth, chartHeight * 2)); // Doble altura para el BarChart
 
         // Agregar las gráficas al panel con la disposición deseada
         chartsPanel.add(pieChartPanel);
