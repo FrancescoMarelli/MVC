@@ -84,6 +84,7 @@ public class BarChart extends JFrame implements Vista{
              Paint color = getDistinctColor();
              plot.getRenderer().setSeriesPaint(i, color);
          }
+         chart.getPlot().setBackgroundPaint(new Color(49, 65, 102)); // Ejemplo de color gris claro
 
          return chart;
     }

@@ -12,14 +12,16 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 
 import javax.swing.*;
+import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
-public class LineChart extends JFrame {
+public class LineChart extends JFrame implements Vista{
     ArrayList<Article> articulos;
     Map<String, Integer> articlesPerDay;
 
@@ -27,6 +29,17 @@ public class LineChart extends JFrame {
         super("Gráfico de Líneas");
         this.articulos = articles;
         this.articlesPerDay = countArticlesPerDay(articles);
+    }
+    public void mostrarArticulos(ArrayList<Article> articulos, String consulta)  throws ExecutionException, InterruptedException{
+        JFreeChart chart = createChart();
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new java.awt.Dimension(500, 390));
+
+        setContentPane(chartPanel);
+        pack();
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
     }
 
     private Map<String, Integer> countArticlesPerDay(ArrayList<Article> articles) {
@@ -81,6 +94,11 @@ public class LineChart extends JFrame {
         dateAxis.setDateFormatOverride(new SimpleDateFormat("MM-dd"));
         dateAxis.setTickUnit(new DateTickUnit(DateTickUnitType.DAY, 1));
 
+        // Cambiar el color del fondo y del borde del plot
+        plot.setBackgroundPaint(new Color(49, 65, 102)); // Color del fondo
+        plot.setOutlinePaint(new Color(49, 65, 102));   // Color del borde
+
         return chart;
     }
+
 }
