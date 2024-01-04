@@ -19,7 +19,8 @@ public class Modelo {
     String queryName;
 
     public Modelo() {
-        this.newsApiClient = new NewsApiClient("895c1b9e570349cc830c4571482d4758");
+        this.newsApiClient = new NewsApiClient("08cd793f0c014d7a9cac64799a6e948a");
+        //this.newsApiClient = new NewsApiClient("895c1b9e570349cc830c4571482d4758");
         noticias = new ArrayList<>();
     }
 
