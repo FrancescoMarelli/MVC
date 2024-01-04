@@ -1,5 +1,4 @@
 package Vista;
-
 import com.kwabenaberko.newsapilib.models.Article;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -28,7 +27,7 @@ public class LineChart extends JFrame {
         super("Gráfico de Líneas");
         this.articulos = articles;
 
-        Map<Date, Integer> articlesPerDay = countArticlesPerDay(articles);
+        Map<String, Integer> articlesPerDay = countArticlesPerDay(articles);
 
         JFreeChart chart = createChart(articlesPerDay);
         ChartPanel chartPanel = new ChartPanel(chart);
@@ -41,8 +40,8 @@ public class LineChart extends JFrame {
         setVisible(true);
     }
 
-    private Map<Date, Integer> countArticlesPerDay(ArrayList<Article> articles) {
-        Map<Date, Integer> articlesPerDay = new HashMap<>();
+    private Map<String, Integer> countArticlesPerDay(ArrayList<Article> articles) {
+        Map<String, Integer> articlesPerDay = new HashMap<>();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -51,7 +50,8 @@ public class LineChart extends JFrame {
             try {
                 Date publishDate = dateFormat.parse(article.getPublishedAt());
                 String dayKey = dayFormat.format(publishDate);
-                articlesPerDay.put(publishDate, articlesPerDay.getOrDefault(dayKey, 0) + 1);
+
+                articlesPerDay.put(dayKey, articlesPerDay.getOrDefault(dayKey, 0) + 1);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -60,11 +60,16 @@ public class LineChart extends JFrame {
         return articlesPerDay;
     }
 
-    private JFreeChart createChart(Map<Date, Integer> articlesPerDay) {
+    private JFreeChart createChart(Map<String, Integer> articlesPerDay) {
         TimeSeries timeSeries = new TimeSeries("Cantidad de Artículos");
 
-        articlesPerDay.forEach((date, count) -> {
-            timeSeries.addOrUpdate(new org.jfree.data.time.Day(date), count);
+        articlesPerDay.forEach((day, count) -> {
+            try {
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(day);
+                timeSeries.addOrUpdate(new org.jfree.data.time.Day(date), count);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         });
 
         TimeSeriesCollection dataset = new TimeSeriesCollection(timeSeries);
@@ -86,9 +91,6 @@ public class LineChart extends JFrame {
         DateAxis dateAxis = (DateAxis) plot.getDomainAxis();
         dateAxis.setDateFormatOverride(new SimpleDateFormat("MM-dd"));
         dateAxis.setTickUnit(new DateTickUnit(DateTickUnitType.DAY, 1));
-        for(Article i : articulos){
-            System.out.println(i.getPublishedAt());
-        }
 
         return chart;
     }
