@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class PieChart extends JFrame implements Vista{
+public class PieChart extends JFrame{
     Map<String, Integer> articlesPerSource;
     ArrayList<Article> articulos;
 
@@ -24,12 +24,8 @@ public class PieChart extends JFrame implements Vista{
     public PieChart(ArrayList<Article> articles) {
         super("Gráfico de Tarta");
         this.articulos = articles;
-
         this.articlesPerSource = countArticlesPerSource(articles);
-    }
-
-    public void mostrarArticulos(ArrayList<Article> articulos, String consulta)  throws ExecutionException, InterruptedException {
-        JFreeChart chart = createChart();
+/*        JFreeChart chart = createChart();
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 390));
 
@@ -37,8 +33,9 @@ public class PieChart extends JFrame implements Vista{
         pack();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+        setVisible(true);*/
     }
+
 
     private Map<String, Integer> countArticlesPerSource(ArrayList<Article> articles) {
         Map<String, Integer> articlesPerSource = new HashMap<>();
@@ -66,7 +63,7 @@ public class PieChart extends JFrame implements Vista{
                 true,
                 false
         );
-         chart.getPlot().setBackgroundPaint(new Color(49, 65, 102)); // Ejemplo de color gris claro
+         chart.getPlot().setBackgroundPaint(new Color(74, 88, 130)); // Ejemplo de color gris claro
 
          return chart;
     }

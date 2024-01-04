@@ -21,7 +21,7 @@ public class DashBoard extends JFrame implements Vista {
 
         // Crear un contenedor para ambas gráficas
         JPanel chartsPanel = new JPanel(new BorderLayout()); // Cambiado a BorderLayout
-        chartsPanel.setBackground(new Color(49, 65, 102)); // Color de fondo principal
+        chartsPanel.setBackground(new Color(74, 88, 130)); // Color de fondo principal
         //setResizable(false);
 
         // Configurar el tamaño de las gráficas
@@ -42,12 +42,12 @@ public class DashBoard extends JFrame implements Vista {
         JPanel topChartsPanel = new JPanel(new GridLayout(1, 2, 10, 0)); // Añadido espacio entre gráficos
         topChartsPanel.add(pieChartPanel);
         topChartsPanel.add(barChartPanel);
-        topChartsPanel.setBackground(new Color(49, 65, 102)); // Color de fondo del panel superior
+        topChartsPanel.setBackground(new Color(74, 88, 130)); // Color de fondo del panel superior
 
         // Crear un nuevo panel para la fila inferior y agregar el LineChart
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.add(lineChartPanel, BorderLayout.CENTER);
-        bottomPanel.setBackground(new Color(49, 65, 102)); // Color de fondo del panel inferior
+        bottomPanel.setBackground(new Color(74, 88, 130)); // Color de fondo del panel inferior
 
         // Agregar los paneles al contenedor principal
         chartsPanel.add(topChartsPanel, BorderLayout.NORTH);

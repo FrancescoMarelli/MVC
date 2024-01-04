@@ -17,7 +17,7 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class BarChart extends JFrame implements Vista{
+public class BarChart extends JFrame{
     private ArrayList<Article> articulos;
     private Map<String, Integer> authorsPerSource;
     private ArrayList<String> sources;
@@ -27,11 +27,7 @@ public class BarChart extends JFrame implements Vista{
         this.articulos = articles;
         this.sources = new ArrayList<>();
         this.authorsPerSource = countAuthorsPerSource(articles);
-    }
-
-    @Override
-    public void mostrarArticulos(ArrayList<Article> articulos, String consulta) throws ExecutionException, InterruptedException {
-        JFreeChart chart = createChart();
+/*        JFreeChart chart = createChart();
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(560, 370));
 
@@ -39,8 +35,9 @@ public class BarChart extends JFrame implements Vista{
         pack();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+        setVisible(true);*/
     }
+
 
     private Map<String, Integer> countAuthorsPerSource(ArrayList<Article> articles) {
         Map<String, Integer> authorsPerSource = new HashMap<>();
@@ -84,7 +81,7 @@ public class BarChart extends JFrame implements Vista{
              Paint color = getDistinctColor();
              plot.getRenderer().setSeriesPaint(i, color);
          }
-         chart.getPlot().setBackgroundPaint(new Color(49, 65, 102)); // Ejemplo de color gris claro
+         chart.getPlot().setBackgroundPaint(new Color(74, 88, 130)); // Ejemplo de color gris claro
 
          return chart;
     }

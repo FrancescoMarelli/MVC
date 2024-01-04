@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class LineChart extends JFrame implements Vista{
+public class LineChart extends JFrame {
     ArrayList<Article> articulos;
     Map<String, Integer> articlesPerDay;
 
@@ -29,9 +29,7 @@ public class LineChart extends JFrame implements Vista{
         super("Gráfico de Líneas");
         this.articulos = articles;
         this.articlesPerDay = countArticlesPerDay(articles);
-    }
-    public void mostrarArticulos(ArrayList<Article> articulos, String consulta)  throws ExecutionException, InterruptedException{
-        JFreeChart chart = createChart();
+/*        JFreeChart chart = createChart();
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 390));
 
@@ -39,8 +37,9 @@ public class LineChart extends JFrame implements Vista{
         pack();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+        setVisible(true);*/
     }
+
 
     private Map<String, Integer> countArticlesPerDay(ArrayList<Article> articles) {
         Map<String, Integer> articlesPerDay = new HashMap<>();
@@ -89,14 +88,16 @@ public class LineChart extends JFrame implements Vista{
         XYPlot plot = chart.getXYPlot();
         XYSplineRenderer renderer = new XYSplineRenderer();
         plot.setRenderer(renderer);
+        renderer.setLegendTextFont(0, new Font("SanSerif", Font.PLAIN, 10));
 
         DateAxis dateAxis = (DateAxis) plot.getDomainAxis();
         dateAxis.setDateFormatOverride(new SimpleDateFormat("MM-dd"));
         dateAxis.setTickUnit(new DateTickUnit(DateTickUnitType.DAY, 1));
+        dateAxis.setTickLabelFont(new Font("SanSerif", Font.PLAIN, 10));
 
         // Cambiar el color del fondo y del borde del plot
-        plot.setBackgroundPaint(new Color(49, 65, 102)); // Color del fondo
-        plot.setOutlinePaint(new Color(49, 65, 102));   // Color del borde
+        plot.setBackgroundPaint(new Color(74, 88, 130)); // Color del fondo
+        plot.setOutlinePaint(new Color(74, 88, 130));   // Color del borde
 
         return chart;
     }
