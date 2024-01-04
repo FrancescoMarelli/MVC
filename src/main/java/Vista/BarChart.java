@@ -92,7 +92,7 @@ public class BarChart extends JFrame implements Vista{
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
         authorsPerSource.forEach((source, authorCount) -> {
-            dataset.addValue(authorCount, "Autores", source);
+            dataset.addValue(authorCount, source, "Autores");
         });
 
         return dataset;
