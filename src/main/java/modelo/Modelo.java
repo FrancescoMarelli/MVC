@@ -24,13 +24,12 @@ public class Modelo {
         noticias = new ArrayList<>();
     }
 
-    public CompletableFuture<List<Article>> parseEverythingToList(String query) {
-        queryName = query;
+    public CompletableFuture<List<Article>> parseEverythingToList() {
         CompletableFuture<List<Article>> future = new CompletableFuture<>();
 
         newsApiClient.getEverything(
                 new EverythingRequest.Builder()
-                        .q(query)
+                        .q(queryName)
                         .sortBy("popularity")
                         .pageSize(100)
                         .build(),
@@ -51,8 +50,8 @@ public class Modelo {
         return future;
     }
 
-    public ArrayList<Article> getArticles(String query) throws ExecutionException, InterruptedException {
-        return (ArrayList<Article>) parseEverythingToList(query).get();
+    public ArrayList<Article> getArticles() throws ExecutionException, InterruptedException {
+        return (ArrayList<Article>) parseEverythingToList().get();
 
     }
 
@@ -60,17 +59,8 @@ public class Modelo {
         return queryName;
     }
 
-}
-
-
-class ArticleUtils {
-
-    public static Article findByTitle(List<Article> articles, String title) {
-        for (Article article : articles) {
-            if (article.getTitle().equals(title)) {
-                return article;
-            }
-        }
-        return null; // Retorna null si no se encuentra ninguna coincidencia
+    public void setQueryName(String queryName) {
+        this.queryName = queryName;
     }
 }
+
