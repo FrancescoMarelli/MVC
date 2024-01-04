@@ -28,7 +28,7 @@ public class Controlador {
         return this.modelo;
     }
 
-    public void hacerBusqueda(Vista vista) throws ExecutionException, InterruptedException {
+    public void hacerBusqueda() throws ExecutionException, InterruptedException {
         try {
             if(getModelo().getQueryName() != null && !getModelo().getQueryName().isEmpty())
                 vista.mostrarArticulos(getModelo().getArticles(), getModelo().getQueryName());
@@ -62,7 +62,7 @@ public class Controlador {
                 if (!textArea.getText().isEmpty()) {
                     try {
                         modelo.setQueryName(textArea.getText());
-                        hacerBusqueda(vista);
+                        hacerBusqueda();
                     } catch (ExecutionException | InterruptedException ex) {
                         ex.printStackTrace();
                     }
@@ -79,6 +79,11 @@ public class Controlador {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cambiarTipoVista((String) tipoVistaComboBox.getSelectedItem());
+                try {
+                    hacerBusqueda();
+                } catch (ExecutionException | InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -99,25 +104,10 @@ public class Controlador {
         // Cambiar el tipo de vista según la opción seleccionada en el JComboBox
         if ("Vista1".equals(tipoVista)) {
             this.vista = new NewsGUI();
-            try {
-                hacerBusqueda(vista);
-            } catch (ExecutionException | InterruptedException ex) {
-                ex.printStackTrace();
-            }
         } else if ("Vista2".equals(tipoVista)) {
             this.vista = new Vista2();
-            try {
-                hacerBusqueda(vista);
-            } catch (ExecutionException | InterruptedException ex) {
-                ex.printStackTrace();
-            }
         } else if ("DashBoard".equals(tipoVista)) {
             vista = new DashBoard();
-            try {
-                hacerBusqueda(vista);
-            } catch (ExecutionException | InterruptedException ex) {
-                ex.printStackTrace();
-            }
         }
     }
 }
