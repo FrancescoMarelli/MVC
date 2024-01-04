@@ -12,7 +12,6 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 
 import javax.swing.*;
-import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,22 +21,12 @@ import java.util.Map;
 
 public class LineChart extends JFrame {
     ArrayList<Article> articulos;
+    Map<String, Integer> articlesPerDay;
 
     public LineChart(ArrayList<Article> articles) {
         super("Gráfico de Líneas");
         this.articulos = articles;
-
-        Map<String, Integer> articlesPerDay = countArticlesPerDay(articles);
-
-        JFreeChart chart = createChart(articlesPerDay);
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new Dimension(560, 370));
-
-        setContentPane(chartPanel);
-        pack();
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+        this.articlesPerDay = countArticlesPerDay(articles);
     }
 
     private Map<String, Integer> countArticlesPerDay(ArrayList<Article> articles) {
@@ -60,7 +49,7 @@ public class LineChart extends JFrame {
         return articlesPerDay;
     }
 
-    private JFreeChart createChart(Map<String, Integer> articlesPerDay) {
+    JFreeChart createChart() {
         TimeSeries timeSeries = new TimeSeries("Cantidad de Artículos");
 
         articlesPerDay.forEach((day, count) -> {

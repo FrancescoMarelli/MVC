@@ -47,6 +47,7 @@ public class Usuario {
         JDialog dialog = new JDialog();
         dialog.setTitle("Asignar Temática de Consulta");
         dialog.setSize(500, 200);
+        dialog.setResizable(false);
         dialog.setLayout(new GridLayout(4, 1));
 
         // Agregar el JTextArea para ingresar la temática de la consulta
@@ -56,6 +57,7 @@ public class Usuario {
 
         // Agregar el botón OK
         JButton okButton = new JButton("OK");
+        okButton.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         okButton.addActionListener(new ActionListener() {
             @Override
