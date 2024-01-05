@@ -46,6 +46,9 @@ public class Controlador {
         queryPanel.add(new JLabel("Introduce la temática de la consulta:"), BorderLayout.NORTH);
 
         JTextArea textArea = new JTextArea();
+        if(modelo.getQueryName() != null){
+            textArea.setText(modelo.getQueryName());
+        }
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textArea.setColumns(50); // Hacer el JTextArea más ancho
@@ -65,6 +68,7 @@ public class Controlador {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 // Realizar la búsqueda solo si se ha ingresado un tema de consulta
                 if (!textArea.getText().isEmpty()) {
                     try {
