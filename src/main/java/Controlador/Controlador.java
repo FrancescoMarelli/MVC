@@ -31,7 +31,7 @@ public class Controlador {
 
     public void hacerBusqueda() throws ExecutionException, InterruptedException {
         try {
-            if(getModelo().getQueryName() != null && !getModelo().getQueryName().isEmpty())
+            if(getModelo().getQueryName() != null)
                 vista.mostrarArticulos(getModelo().getArticles(), getModelo().getQueryName());
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
@@ -110,6 +110,8 @@ public class Controlador {
 
         // Centra el diálogo en la pantalla
         dialog.setLocationRelativeTo(null);
+        dialog.setIconImage(new ImageIcon("src/main/img/nalogo.png").getImage());
+
 
         // Muestra el cuadro de diálogo
         SwingUtilities.invokeLater(() -> dialog.setVisible(true)); // Mostrar el diálogo en el hilo de despacho de eventos

@@ -58,6 +58,8 @@ public class DashBoard extends JFrame implements Vista {
 
         // Configurar la ventana principal
         setTitle("Dashboard");
+        setIconImage(new ImageIcon("src/main/img/nalogo.png").getImage());
+        setMinimumSize(new Dimension(1000, 800));
         setExtendedState(JFrame.MAXIMIZED_BOTH);  // Hacer la ventana de pantalla completa
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
