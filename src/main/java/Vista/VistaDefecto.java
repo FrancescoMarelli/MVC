@@ -1,5 +1,5 @@
 package Vista;
-import Vista.*;
+
 import com.kwabenaberko.newsapilib.models.Article;
 
 import javax.swing.*;
@@ -9,10 +9,9 @@ import java.awt.event.MouseEvent;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
-public class Vista2 extends JFrame implements Vista {
+
+public class VistaDefecto extends JFrame implements Vista {
     private JPanel panelPrincipal;
     JPanel panelCabecera;
     JLabel labelCabecera;

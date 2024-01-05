@@ -1,8 +1,6 @@
 package Controlador;
 import Vista.*;
-import usuario.*;
 import Vista.Vista;
-import com.kwabenaberko.newsapilib.models.Article;
 import modelo.Modelo;
 
 import javax.swing.*;
@@ -10,9 +8,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class Controlador {
@@ -87,7 +82,7 @@ public class Controlador {
             }
         });
 
-        JComboBox<String> tipoVistaComboBox = new JComboBox<>(new String[]{"Vista1", "Vista2", "DashBoard"});
+        JComboBox<String> tipoVistaComboBox = new JComboBox<>(new String[]{"Vista Noticias", "Dashboard"});
         tipoVistaComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -119,11 +114,9 @@ public class Controlador {
 
     private void cambiarTipoVista(String tipoVista) {
         // Cambiar el tipo de vista según la opción seleccionada en el JComboBox
-        if ("Vista1".equals(tipoVista)) {
-            this.vista = new NewsGUI();
-        } else if ("Vista2".equals(tipoVista)) {
-            this.vista = new Vista2();
-        } else if ("DashBoard".equals(tipoVista)) {
+        if ("Vista Noticias".equals(tipoVista)) {
+            this.vista = new VistaDefecto();
+        } else if ("Dashboard".equals(tipoVista)) {
             vista = new DashBoard();
         }
     }
