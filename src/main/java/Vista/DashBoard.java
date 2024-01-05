@@ -37,7 +37,7 @@ public class DashBoard extends JFrame implements Vista {
         pieChartPanel.setPreferredSize(new Dimension(chartWidth, chartHeight));
         barChartPanel.setPreferredSize(new Dimension(chartWidth, chartHeight));
 
-        // Agregar las gráficas al panel con la disposición deseada
+
         // Agregar las gráficas al panel con la disposición deseada
         JPanel topChartsPanel = new JPanel(new GridLayout(1, 2, 10, 0)); // Añadido espacio entre gráficos
         topChartsPanel.add(pieChartPanel);
@@ -49,9 +49,13 @@ public class DashBoard extends JFrame implements Vista {
         bottomPanel.add(lineChartPanel, BorderLayout.CENTER);
         bottomPanel.setBackground(new Color(74, 88, 130)); // Color de fondo del panel inferior
 
+        // Configurar el tamaño preferido para el panel de LineChart
+
+        lineChartPanel.setPreferredSize(new Dimension(1000, 500));
+
         // Agregar los paneles al contenedor principal
         chartsPanel.add(topChartsPanel, BorderLayout.NORTH);
-        chartsPanel.add(bottomPanel, BorderLayout.CENTER);
+        chartsPanel.add(bottomPanel, BorderLayout.SOUTH);
 
         // Añadir espacio adicional entre los gráficos y los bordes de la ventana
         chartsPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));

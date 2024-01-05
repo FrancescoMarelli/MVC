@@ -6,6 +6,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.DateTickUnit;
 import org.jfree.chart.axis.DateTickUnitType;
+import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYSplineRenderer;
 import org.jfree.data.time.TimeSeries;
@@ -98,6 +99,10 @@ public class LineChart extends JFrame {
         // Cambiar el color del fondo y del borde del plot
         plot.setBackgroundPaint(new Color(74, 88, 130)); // Color del fondo
         plot.setOutlinePaint(new Color(74, 88, 130));   // Color del borde
+
+        NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
+        int maxCount = articlesPerDay.values().stream().max(Integer::compareTo).get();
+        yAxis.setRange(0, maxCount + 2);
 
         return chart;
     }
