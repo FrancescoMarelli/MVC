@@ -15,9 +15,8 @@ public class Controlador {
     private Vista vista;
 
     public Controlador(Modelo modelo, Vista vista){
-
         this.modelo = modelo;
-        this.vista = vista;
+        this.vista = new VistaDefecto(this);
     }
 
     public Modelo getModelo(){
@@ -87,11 +86,11 @@ public class Controlador {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cambiarTipoVista((String) tipoVistaComboBox.getSelectedItem());
-                try {
+                /*try {
                     hacerBusqueda();
                 } catch (ExecutionException | InterruptedException ex) {
                     ex.printStackTrace();
-                }
+                }*/
             }
         });
         typePanel.add(tipoVistaComboBox, BorderLayout.CENTER);
@@ -115,7 +114,7 @@ public class Controlador {
     private void cambiarTipoVista(String tipoVista) {
         // Cambiar el tipo de vista según la opción seleccionada en el JComboBox
         if ("Vista Noticias".equals(tipoVista)) {
-            this.vista = new VistaDefecto();
+            this.vista = new VistaDefecto(this);
         } else if ("Dashboard".equals(tipoVista)) {
             vista = new DashBoard();
         }
