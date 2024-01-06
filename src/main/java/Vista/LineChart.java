@@ -1,4 +1,5 @@
 package Vista;
+import Controlador.Controlador;
 import com.kwabenaberko.newsapilib.models.Article;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -22,9 +23,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class LineChart extends JFrame {
-    ArrayList<Article> articulos;
-    Map<String, Integer> articlesPerDay;
+public class LineChart extends JFrame implements Vista{
+    private ArrayList<Article> articulos;
+    private Map<String, Integer> articlesPerDay;
+    private Controlador controlador;
 
     public LineChart(ArrayList<Article> articles) {
         super("Gráfico de Líneas");
@@ -40,7 +42,41 @@ public class LineChart extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);*/
     }
+    public LineChart(Controlador controlador) {
+        super("Gráfico de Líneas");
+        this.controlador = controlador;
 
+/*        JFreeChart chart = createChart();
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new java.awt.Dimension(500, 390));
+
+        setContentPane(chartPanel);
+        pack();
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);*/
+    }
+    public void mostrarArticulos(ArrayList<Article> articulos, String consulta) {
+        this.articulos = articulos;
+        this.articlesPerDay = countArticlesPerDay(articulos);
+
+        JFreeChart chart = createChart();
+        ChartPanel chartPanel = new ChartPanel(chart);
+
+        // Configurar el JFrame
+        setTitle("Gráfico de Lineas");
+        setIconImage(new ImageIcon("src/main/img/nalogo.png").getImage());
+        setMinimumSize(new Dimension(1000, 800));
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Agregar el panel de gráfico al JFrame
+        getContentPane().add(chartPanel);
+
+        // Hacer visible el JFrame
+        setVisible(true);
+
+    }
 
     private Map<String, Integer> countArticlesPerDay(ArrayList<Article> articles) {
         Map<String, Integer> articlesPerDay = new HashMap<>();
