@@ -1,5 +1,6 @@
 package Vista;
 
+import Controlador.Controlador;
 import com.kwabenaberko.newsapilib.models.Article;
 
 import com.kwabenaberko.newsapilib.models.Article;
@@ -16,9 +17,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class PieChart extends JFrame{
+public class PieChart extends JFrame implements Vista{
     Map<String, Integer> articlesPerSource;
     ArrayList<Article> articulos;
+    private Controlador controlador;
 
 
     public PieChart(ArrayList<Article> articles) {
@@ -34,6 +36,44 @@ public class PieChart extends JFrame{
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);*/
+    }
+
+    public PieChart(Controlador controlador) {
+        this.controlador = controlador;
+
+
+
+/*        JFreeChart chart = createChart();
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new java.awt.Dimension(500, 390));
+
+        setContentPane(chartPanel);
+        pack();
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);*/
+    }
+
+    public void mostrarArticulos(ArrayList<Article> articulos, String consulta) {
+        this.articulos = articulos;
+        this.articlesPerSource = countArticlesPerSource(articulos);
+
+        JFreeChart chart = createChart();
+        ChartPanel chartPanel = new ChartPanel(chart);
+
+        // Configurar el JFrame
+        setTitle("Gráfico de Tarta");
+        setIconImage(new ImageIcon("src/main/img/nalogo.png").getImage());
+        setMinimumSize(new Dimension(1000, 800));
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Agregar el panel de gráfico al JFrame
+        getContentPane().add(chartPanel);
+
+        // Hacer visible el JFrame
+        setVisible(true);
+
     }
 
 

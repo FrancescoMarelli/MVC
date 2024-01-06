@@ -85,7 +85,7 @@ public class Controlador {
             }
         });
 
-        JComboBox<String> tipoVistaComboBox = new JComboBox<>(new String[]{"Vista Noticias", "Dashboard", "Barras"});
+        JComboBox<String> tipoVistaComboBox = new JComboBox<>(new String[]{"Vista Noticias", "Dashboard", "Barras", "Tarta"});
         tipoVistaComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -123,6 +123,8 @@ public class Controlador {
             vista = new DashBoard();
         } else if ("Barras".equals(tipoVista)) {
             vista = new BarChart(this);
+        } else if ("Tarta".equals(tipoVista)) {
+            vista = new PieChart(this);
         }
     }
 }
