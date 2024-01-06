@@ -3,7 +3,6 @@ package Vista;
 import Controlador.Controlador;
 import com.kwabenaberko.newsapilib.models.Article;
 
-import com.kwabenaberko.newsapilib.models.Article;
 import com.kwabenaberko.newsapilib.models.Source;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -12,15 +11,18 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 public class PieChart extends JFrame implements Vista{
     Map<String, Integer> articlesPerSource;
     ArrayList<Article> articulos;
     private Controlador controlador;
+    JPanel panelCabecera;
+    JLabel labelCabecera;
 
 
     public PieChart(ArrayList<Article> articles) {
@@ -39,6 +41,7 @@ public class PieChart extends JFrame implements Vista{
 
         JFreeChart chart = createChart();
         ChartPanel chartPanel = new ChartPanel(chart);
+        panelCabecera = crearPanelCabecera(consulta);
 
         // Configurar el JFrame
         setTitle("Gráfico de Tarta");
@@ -49,6 +52,7 @@ public class PieChart extends JFrame implements Vista{
 
         // Agregar el panel de gráfico al JFrame
         getContentPane().add(chartPanel);
+        getContentPane().add(panelCabecera, BorderLayout.NORTH);
 
         // Hacer visible el JFrame
         setVisible(true);
@@ -86,4 +90,48 @@ public class PieChart extends JFrame implements Vista{
 
          return chart;
     }
+
+    private JPanel crearPanelCabecera(String tituloPagina) {
+        panelCabecera = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        panelCabecera.setBackground(new Color(0, 102, 204)); // Azul
+        labelCabecera = new JLabel(tituloPagina);
+        labelCabecera.setFont(new Font("Arial", Font.BOLD, 24)); // Cambiado a Arial y tamaño 24
+        labelCabecera.setForeground(Color.WHITE); // Texto blanco
+        panelCabecera.add(labelCabecera);
+
+        ImageIcon iconoLogo = getLogo();
+        if (iconoLogo != null) {
+            JLabel labelLogo = new JLabel(iconoLogo);
+            panelCabecera.add(labelLogo);
+        }
+
+        JButton cambiarParametrosButton = new JButton("Cambiar Parámetros");
+        cambiarParametrosButton.setFocusable(false);
+        cambiarParametrosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    controlador.setQuery();
+                    dispose();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        panelCabecera.add(cambiarParametrosButton);
+
+        return panelCabecera;
+    }
+    ImageIcon getLogo() {
+        try {
+            ImageIcon originalIcon = new ImageIcon("src/main/img/logo.png");
+            Image resizedImage = originalIcon.getImage().getScaledInstance(130, 35, Image.SCALE_SMOOTH);
+            return new ImageIcon(resizedImage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
