@@ -32,29 +32,10 @@ public class LineChart extends JFrame implements Vista{
         super("Gráfico de Líneas");
         this.articulos = articles;
         this.articlesPerDay = countArticlesPerDay(articles);
-/*        JFreeChart chart = createChart();
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(500, 390));
-
-        setContentPane(chartPanel);
-        pack();
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);*/
     }
     public LineChart(Controlador controlador) {
         super("Gráfico de Líneas");
         this.controlador = controlador;
-
-/*        JFreeChart chart = createChart();
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(500, 390));
-
-        setContentPane(chartPanel);
-        pack();
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);*/
     }
     public void mostrarArticulos(ArrayList<Article> articulos, String consulta) {
         this.articulos = articulos;

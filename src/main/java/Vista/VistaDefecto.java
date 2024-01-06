@@ -56,6 +56,7 @@
                 public void actionPerformed(ActionEvent e) {
                     try {
                         controlador.setQuery();
+                        dispose();
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }

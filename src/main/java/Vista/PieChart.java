@@ -27,31 +27,10 @@ public class PieChart extends JFrame implements Vista{
         super("Gráfico de Tarta");
         this.articulos = articles;
         this.articlesPerSource = countArticlesPerSource(articles);
-/*        JFreeChart chart = createChart();
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(500, 390));
-
-        setContentPane(chartPanel);
-        pack();
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);*/
     }
 
     public PieChart(Controlador controlador) {
         this.controlador = controlador;
-
-
-
-/*        JFreeChart chart = createChart();
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(500, 390));
-
-        setContentPane(chartPanel);
-        pack();
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);*/
     }
 
     public void mostrarArticulos(ArrayList<Article> articulos, String consulta) {

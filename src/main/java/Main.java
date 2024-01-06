@@ -10,9 +10,10 @@ import java.util.concurrent.ExecutionException;
 public class Main {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         Vista vista = new NewsGUI();
-        //Controlador controlador = new Controlador(new Modelo());
-        Usuario usuario1 = new Usuario("lOCO", new Controlador(new Modelo(), vista));
+        Modelo modelo = new Modelo();
+        Controlador controlador = new Controlador(modelo, vista);
+        Usuario usuario = new Usuario("Sergio", controlador);
 
-        usuario1.buscar();
+        usuario.buscar();
     }
 }

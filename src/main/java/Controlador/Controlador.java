@@ -16,7 +16,7 @@ public class Controlador {
 
     public Controlador(Modelo modelo, Vista vista){
         this.modelo = modelo;
-        this.vista = new VistaDefecto(this);
+        this.vista = new DashBoard(this);
     }
 
     public Modelo getModelo(){
@@ -37,6 +37,7 @@ public class Controlador {
     public void setQuery() {
         JDialog dialog = new JDialog();
         dialog.setTitle("Asignar Temática de Consulta");
+        dialog.setResizable(false);
         dialog.setSize(500, 200);
         dialog.setLayout(new BorderLayout(10, 10)); // Añadido espacio entre los componentes
 
@@ -68,12 +69,14 @@ public class Controlador {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 // Realizar la búsqueda solo si se ha ingresado un tema de consulta
                 if (!textArea.getText().isEmpty()) {
                     try {
-                        modelo.setQueryName(textArea.getText());
-                        hacerBusqueda();
+                        // Actualizar la vista si ya está instanciada
+                        if (vista != null) {
+                            modelo.setQueryName(textArea.getText());
+                            hacerBusqueda();
+                        }
                     } catch (ExecutionException | InterruptedException ex) {
                         ex.printStackTrace();
                     }
@@ -85,7 +88,7 @@ public class Controlador {
             }
         });
 
-        JComboBox<String> tipoVistaComboBox = new JComboBox<>(new String[]{"Vista Noticias", "Dashboard", "Barras", "Tarta", "Lineas"});
+        JComboBox<String> tipoVistaComboBox = new JComboBox<>(new String[]{"Dashboard", "Vista Noticias", "Barras", "Tarta", "Lineas"});
         tipoVistaComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -116,17 +119,17 @@ public class Controlador {
     }
 
     private void cambiarTipoVista(String tipoVista) {
-        // Cambiar el tipo de vista según la opción seleccionada en el JComboBox
-        if ("Vista Noticias".equals(tipoVista)) {
-            this.vista = new VistaDefecto(this);
-        } else if ("Dashboard".equals(tipoVista)) {
-            vista = new DashBoard();
+        // Verificar si ya existe una instancia de la vista
+        if ("Dashboard".equals(tipoVista)) {
+                vista = new DashBoard(this);
+        } else if ("Vista Noticias".equals(tipoVista)) {
+                vista = new VistaDefecto(this);
         } else if ("Barras".equals(tipoVista)) {
-            vista = new BarChart(this);
+                vista = new BarChart(this);
         } else if ("Tarta".equals(tipoVista)) {
-            vista = new PieChart(this);
+                vista = new PieChart(this);
         } else if ("Lineas".equals(tipoVista)) {
-            vista = new LineChart(this);
+                vista = new LineChart(this);
         }
     }
 }

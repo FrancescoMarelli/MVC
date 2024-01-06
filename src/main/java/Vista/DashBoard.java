@@ -1,16 +1,25 @@
 package Vista;
 
+import Controlador.Controlador;
 import com.kwabenaberko.newsapilib.models.Article;
 import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class DashBoard extends JFrame implements Vista {
 
     private ArrayList<Article> articulos;
+    private Controlador controlador;
+
+    public DashBoard(Controlador controlador) {
+        super("Dashboard");
+        this.controlador = controlador;
+    }
 
     public void mostrarArticulos(ArrayList<Article> articulos, String consulta) throws ExecutionException, InterruptedException {
         this.articulos = articulos;
@@ -60,8 +69,26 @@ public class DashBoard extends JFrame implements Vista {
         // Añadir espacio adicional entre los gráficos y los bordes de la ventana
         chartsPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setBackground(new Color(74, 88, 130));
+        JButton cambiarParametrosButton = new JButton("Cambiar Parámetros");
+        cambiarParametrosButton.setPreferredSize(new Dimension(200, 50));
+        cambiarParametrosButton.setFocusable(false);
+        cambiarParametrosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    controlador.setQuery();
+                    dispose();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        buttonPanel.add(cambiarParametrosButton);
+        chartsPanel.add(buttonPanel, BorderLayout.CENTER);
+
         // Configurar la ventana principal
-        setTitle("Dashboard");
         setIconImage(new ImageIcon("src/main/img/nalogo.png").getImage());
         setMinimumSize(new Dimension(1000, 800));
         setExtendedState(JFrame.MAXIMIZED_BOTH);  // Hacer la ventana de pantalla completa
@@ -69,7 +96,6 @@ public class DashBoard extends JFrame implements Vista {
 
         // Agregar el panel de gráficas a la ventana
         getContentPane().add(chartsPanel);
-
         // Hacer visible la ventana
         setVisible(true);
     }
