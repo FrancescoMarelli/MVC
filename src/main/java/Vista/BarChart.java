@@ -1,5 +1,6 @@
 package Vista;
 
+import Controlador.Controlador;
 import com.kwabenaberko.newsapilib.models.Article;
 import com.kwabenaberko.newsapilib.models.Source;
 import org.jfree.chart.ChartFactory;
@@ -17,10 +18,11 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class BarChart extends JFrame{
+public class BarChart extends JFrame implements Vista{
     private ArrayList<Article> articulos;
     private Map<String, Integer> authorsPerSource;
     private ArrayList<String> sources;
+    private Controlador controlador;
 
     public BarChart(ArrayList<Article> articles) {
         super("Gráfico de Barras");
@@ -38,6 +40,42 @@ public class BarChart extends JFrame{
         setVisible(true);*/
     }
 
+    public BarChart(Controlador controlador) {
+        super("Gráfico de Barras");
+        this.controlador = controlador;
+/*        JFreeChart chart = createChart();
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(560, 370));
+
+        setContentPane(chartPanel);
+        pack();
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);*/
+    }
+
+    public void mostrarArticulos(ArrayList<Article> articulos, String consulta) {
+        this.articulos = articulos;
+        this.sources = new ArrayList<>();
+        this.authorsPerSource = countAuthorsPerSource(articulos);
+
+
+        JFreeChart chart = createChart();
+        ChartPanel chartPanel = new ChartPanel(chart);
+
+        // Configurar el JFrame
+        setTitle("Gráfico de Barras");
+        setIconImage(new ImageIcon("src/main/img/nalogo.png").getImage());
+        setMinimumSize(new Dimension(1000, 800));
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Agregar el panel de gráfico al JFrame
+        getContentPane().add(chartPanel);
+
+        // Hacer visible el JFrame
+        setVisible(true);
+    }
 
     private Map<String, Integer> countAuthorsPerSource(ArrayList<Article> articles) {
         Map<String, Integer> authorsPerSource = new HashMap<>();
