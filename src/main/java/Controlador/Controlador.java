@@ -93,11 +93,6 @@ public class Controlador {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cambiarTipoVista((String) tipoVistaComboBox.getSelectedItem());
-                /*try {
-                    hacerBusqueda();
-                } catch (ExecutionException | InterruptedException ex) {
-                    ex.printStackTrace();
-                }*/
             }
         });
         typePanel.add(tipoVistaComboBox, BorderLayout.CENTER);
@@ -121,15 +116,15 @@ public class Controlador {
     private void cambiarTipoVista(String tipoVista) {
         // Verificar si ya existe una instancia de la vista
         if ("Dashboard".equals(tipoVista)) {
-                vista = new DashBoard(this);
+            vista = new DashBoard(this);
         } else if ("Vista Noticias".equals(tipoVista)) {
-                vista = new VistaDefecto(this);
+            vista = new VistaDefecto(this);
         } else if ("Barras".equals(tipoVista)) {
-                vista = new BarChart(this);
+            vista = new BarChart(this);
         } else if ("Tarta".equals(tipoVista)) {
-                vista = new PieChart(this);
+            vista = new PieChart(this);
         } else if ("Lineas".equals(tipoVista)) {
-                vista = new LineChart(this);
+            vista = new LineChart(this);
         }
     }
 }

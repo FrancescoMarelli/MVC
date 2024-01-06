@@ -79,7 +79,7 @@ public class DashBoard extends JFrame implements Vista {
             public void actionPerformed(ActionEvent e) {
                 try {
                     controlador.setQuery();
-                    dispose();
+                    //dispose();
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
