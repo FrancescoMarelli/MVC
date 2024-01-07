@@ -72,11 +72,8 @@ public class Controlador {
                 // Realizar la búsqueda solo si se ha ingresado un tema de consulta
                 if (!textArea.getText().isEmpty()) {
                     try {
-                        // Actualizar la vista si ya está instanciada
-                        if (vista != null) {
                             modelo.setQueryName(textArea.getText());
                             hacerBusqueda();
-                        }
                     } catch (ExecutionException | InterruptedException ex) {
                         ex.printStackTrace();
                     }

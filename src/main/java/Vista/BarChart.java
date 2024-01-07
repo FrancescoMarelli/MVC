@@ -2,7 +2,6 @@ package Vista;
 
 import Controlador.Controlador;
 import com.kwabenaberko.newsapilib.models.Article;
-import com.kwabenaberko.newsapilib.models.Source;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;

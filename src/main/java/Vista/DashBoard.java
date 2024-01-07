@@ -15,6 +15,14 @@ public class DashBoard extends JFrame implements Vista {
 
     private ArrayList<Article> articulos;
     private Controlador controlador;
+    JPanel chartsPanel;
+    LineChart lineChart ;
+    PieChart pieChart;
+    BarChart barChart;
+    ChartPanel pieChartPanel;
+    ChartPanel lineChartPanel;
+    ChartPanel barChartPanel;
+
 
     public DashBoard(Controlador controlador) {
         super("Dashboard");
@@ -23,20 +31,22 @@ public class DashBoard extends JFrame implements Vista {
 
     public void mostrarArticulos(ArrayList<Article> articulos, String consulta) throws ExecutionException, InterruptedException {
         this.articulos = articulos;
+        if (chartsPanel != null)
+            chartsPanel.removeAll();
 
-        LineChart lineChart = new LineChart(articulos);
-        PieChart pieChart = new PieChart(articulos);
-        BarChart barChart = new BarChart(articulos);
+         lineChart = new LineChart(articulos);
+         pieChart = new PieChart(articulos);
+         barChart = new BarChart(articulos);
 
         // Crear un contenedor para ambas gráficas
-        JPanel chartsPanel = new JPanel(new BorderLayout()); // Cambiado a BorderLayout
+        chartsPanel = new JPanel(new BorderLayout()); // Cambiado a BorderLayout
         chartsPanel.setBackground(new Color(74, 88, 130)); // Color de fondo principal
         //setResizable(false);
 
         // Configurar el tamaño de las gráficas
-        ChartPanel pieChartPanel = new ChartPanel(pieChart.createChart());
-        ChartPanel lineChartPanel = new ChartPanel(lineChart.createChart());
-        ChartPanel barChartPanel = new ChartPanel(barChart.createChart());
+         pieChartPanel = new ChartPanel(pieChart.createChart());
+         lineChartPanel = new ChartPanel(lineChart.createChart());
+         barChartPanel = new ChartPanel(barChart.createChart());
 
         // Configurar el tamaño deseado para cada gráfico
         int chartWidth = 500;
@@ -79,7 +89,7 @@ public class DashBoard extends JFrame implements Vista {
             public void actionPerformed(ActionEvent e) {
                 try {
                     controlador.setQuery();
-                    //dispose();
+                    dispose();
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
