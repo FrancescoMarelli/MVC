@@ -13,10 +13,12 @@ import java.util.concurrent.ExecutionException;
 public class Controlador {
     private Modelo modelo;
     private Vista vista;
+    private String vistaString;
 
     public Controlador(Modelo modelo, Vista vista){
         this.modelo = modelo;
         this.vista = new DashBoard(this);
+        this.vistaString = "DashBoard";
     }
 
     public Modelo getModelo(){
@@ -72,6 +74,7 @@ public class Controlador {
                 // Realizar la búsqueda solo si se ha ingresado un tema de consulta
                 if (!textArea.getText().isEmpty()) {
                     try {
+                            cambiarTipoVista(vistaString);
                             modelo.setQueryName(textArea.getText());
                             hacerBusqueda();
                     } catch (ExecutionException | InterruptedException ex) {
@@ -86,10 +89,12 @@ public class Controlador {
         });
 
         JComboBox<String> tipoVistaComboBox = new JComboBox<>(new String[]{"Dashboard", "Vista Noticias", "Barras", "Tarta", "Lineas"});
+        tipoVistaComboBox.setSelectedItem(vistaString);
         tipoVistaComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cambiarTipoVista((String) tipoVistaComboBox.getSelectedItem());
+                //cambiarTipoVista((String) tipoVistaComboBox.getSelectedItem());
+                vistaString = (String) tipoVistaComboBox.getSelectedItem();
             }
         });
         typePanel.add(tipoVistaComboBox, BorderLayout.CENTER);
