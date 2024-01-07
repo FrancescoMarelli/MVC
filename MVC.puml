@@ -1,0 +1,45 @@
+@startuml
+class modelo.ModeloAPI implements modelo.Modelo {
+- NewsApiClient newsApiClient
+~ ArrayList<Article> noticias
+~ String queryName
++ CompletableFuture<List<Article>> parseEverythingToList()
++ ArrayList<Article> getArticles()
++ String getQueryName()
++ void setQueryName(String)
+}
+interface modelo.Modelo {
++ ArrayList<Article> getArticles()
++ String getQueryName()
++ void setQueryName(String)
+}
+
+class Controlador.Controlador {
+- Modelo modelo
+- Vista vista
+- String vistaString
++ Modelo getModelo()
++ void hacerBusqueda()
++ void setQuery()
+- void cambiarTipoVista(String)
+}
+interface Vista.Vista {
+~ void mostrarArticulos(ArrayList<Article>,String)
+}
+
+class Main {
++ void main(String[])
+}
+
+
+
+usuario.Usuario -- Controlador.Controlador: Interacción
+Controlador.Controlador -- Vista.Vista: Actualización
+Controlador.Controlador -- modelo.Modelo: Consulta/Actualización
+Controlador.Controlador --> usuario.Usuario: Respuesta
+Controlador.Controlador -- Vista.Vista: Presentación
+Controlador.Controlador -- modelo.Modelo: Actualización de Datos
+Main -- Controlador.Controlador: Creación
+
+
+@enduml

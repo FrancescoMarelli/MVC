@@ -2,9 +2,10 @@ package Vista;
 
 import com.kwabenaberko.newsapilib.models.Article;
 
+import javax.swing.*;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
+
+
 import java.util.concurrent.ExecutionException;
 
 public interface Vista {
