@@ -1,0 +1,140 @@
+@startuml
+class Main {
++ {static} void main(String[])
+}
+interface modelo.Modelo{
++ ArrayList<Article> getArticles()
++ String getQueryName()
++ void setQueryName(String)
+}
+
+class modelo.ModeloAPI implements modelo.Modelo{
+- NewsApiClient newsApiClient
+~ ArrayList<Article> noticias
+~ String queryName
++ CompletableFuture<List<Article>> parseEverythingToList()
++ ArrayList<Article> getArticles()
++ String getQueryName()
++ void setQueryName(String)
+}
+class Vista.PieChart implements Vista.Vista {
+~ Map<String,Integer> articlesPerSource
+~ ArrayList<Article> articulos
+- Controlador controlador
+~ JPanel panelCabecera
+~ JLabel labelCabecera
++ void mostrarArticulos(ArrayList<Article>,String)
+- Map<String,Integer> countArticlesPerSource(ArrayList<Article>)
+~ JFreeChart createChart()
+- JPanel crearPanelCabecera(String)
+~ ImageIcon getLogo()
+}
+class Vista.NewsGUI implements Vista.Vista {
+- JPanel panelPrincipal
+~ JPanel panelCabecera
+~ JLabel labelCabecera
+- JPanel panelNoticias
+- JPanel crearPanelPrincipal(String)
+- JPanel crearPanelCabecera(String)
+- JPanel crearPanelNoticias(ArrayList<Article>)
+- JPanel crearPanelTituloNoticia(Article)
+- void configurarEstiloLabelTitulo(JLabel,Article)
+~ ImageIcon getLogo()
++ void update(ArrayList<Article>,String)
++ void mostrarArticulos(ArrayList<Article>,String)
+}
+class Vista.NewsGUI$NoticiaMouseListener {
+- Article noticia
+- String tituloNoticia
+- URL urlNoticia
++ void mouseClicked(MouseEvent)
+}
+class usuario.Usuario {
+- String name
+- Controlador controlador
++ String getName()
++ Controlador getControlador()
++ void setQuery()
++ void buscar()
+}
+class Vista.DashBoard implements Vista.Vista {
+- ArrayList<Article> articulos
+- Controlador controlador
++ void mostrarArticulos(ArrayList<Article>,String)
+}
+class Vista.BarChart implements Vista.Vista {
+- ArrayList<Article> articulos
+- Map<String,Integer> authorsPerSource
+- ArrayList<String> sources
+- Controlador controlador
+- JFreeChart chart
+- ChartPanel chartPanel
+~ JPanel panelCabecera
+~ JLabel labelCabecera
++ void mostrarArticulos(ArrayList<Article>,String)
+- Map<String,Integer> countAuthorsPerSource(ArrayList<Article>)
+~ JFreeChart createChart()
+- CategoryDataset createDataset()
+- Paint getDistinctColor()
+- JPanel crearPanelCabecera(String)
+~ ImageIcon getLogo()
+}
+class Vista.VistaDefecto implements Vista.Vista {
+- JPanel panelPrincipal
+~ JPanel panelCabecera
+~ JLabel labelCabecera
+- JPanel panelNoticias
+- Controlador controlador
+- JPanel crearPanelPrincipal(String)
+- JPanel crearPanelCabecera(String)
+- JPanel crearPanelNoticias(ArrayList<Article>)
+- JPanel crearPanelTituloNoticia(Article)
+- void configurarEstiloLabelTitulo(JLabel,Article)
+~ ImageIcon getLogo()
++ void update(ArrayList<Article>,String)
++ void mostrarArticulos(ArrayList<Article>,String)
+}
+class Vista.VistaDefecto$NoticiaMouseListener {
+- Article noticia
+- String tituloNoticia
+- URL urlNoticia
++ void mouseClicked(MouseEvent)
+}
+class Controlador.Controlador{
+- Modelo modelo
+- Vista vista
+- String vistaString
++ Modelo getModelo()
++ void hacerBusqueda()
++ void setQuery()
+- void cambiarTipoVista(String)
+}
+interface Vista.Vista {
+~ void mostrarArticulos(ArrayList<Article>,String)
+}
+class Vista.LineChart implements Vista.Vista{
+- ArrayList<Article> articulos
+- Map<String,Integer> articlesPerDay
+- Controlador controlador
+~ JPanel panelCabecera
+~ JLabel labelCabecera
++ void mostrarArticulos(ArrayList<Article>,String)
+- Map<String,Integer> countArticlesPerDay(ArrayList<Article>)
+~ JFreeChart createChart()
+- JPanel crearPanelCabecera(String)
+~ ImageIcon getLogo()
+}
+
+
+Vista.NewsGUI +.. Vista.NewsGUI$NoticiaMouseListener
+Vista.VistaDefecto +.. Vista.VistaDefecto$NoticiaMouseListener
+usuario.Usuario -- Controlador.Controlador: Interacción
+Controlador.Controlador -- Vista.Vista: Actualización
+Controlador.Controlador -- modelo.Modelo: Consulta/Actualización
+Controlador.Controlador --> usuario.Usuario: Respuesta
+Controlador.Controlador -- Vista.Vista: Presentación
+Controlador.Controlador -- modelo.Modelo: Actualización de Datos
+
+
+
+@enduml

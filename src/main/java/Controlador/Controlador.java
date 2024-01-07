@@ -2,6 +2,7 @@ package Controlador;
 import Vista.*;
 import Vista.Vista;
 import modelo.Modelo;
+import modelo.ModeloAPI;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,18 +12,18 @@ import java.awt.event.ActionListener;
 import java.util.concurrent.ExecutionException;
 
 public class Controlador {
-    private Modelo modelo;
+    private Modelo modeloAPI;
     private Vista vista;
     private String vistaString;
 
-    public Controlador(Modelo modelo, Vista vista){
-        this.modelo = modelo;
+    public Controlador(Modelo modeloAPI, Vista vista){
+        this.modeloAPI = modeloAPI;
         this.vista = new DashBoard(this);
         this.vistaString = "DashBoard";
     }
 
     public Modelo getModelo(){
-        return this.modelo;
+        return this.modeloAPI;
     }
 
     public void hacerBusqueda() throws ExecutionException, InterruptedException {
@@ -49,8 +50,8 @@ public class Controlador {
         queryPanel.add(new JLabel("Introduce la temática de la consulta:"), BorderLayout.NORTH);
 
         JTextArea textArea = new JTextArea();
-        if(modelo.getQueryName() != null){
-            textArea.setText(modelo.getQueryName());
+        if(modeloAPI.getQueryName() != null){
+            textArea.setText(modeloAPI.getQueryName());
         }
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
@@ -75,7 +76,7 @@ public class Controlador {
                 if (!textArea.getText().isEmpty()) {
                     try {
                             cambiarTipoVista(vistaString);
-                            modelo.setQueryName(textArea.getText());
+                            modeloAPI.setQueryName(textArea.getText());
                             hacerBusqueda();
                     } catch (ExecutionException | InterruptedException ex) {
                         ex.printStackTrace();
